@@ -53,4 +53,12 @@ rsconnect/
 *.png
 *.jpeg
 *.pdf
-
+*.xlsx
+*.dbf
+*.shp
+*.prj
+*.sbn
+*.sbx
+*.xml
+*.zip
+*.shx
