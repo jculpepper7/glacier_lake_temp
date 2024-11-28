@@ -138,3 +138,56 @@ ggplot()+
     ylim = c(33, 71)
   )
 
+# ggsave(
+#   here(
+#     'output/maps/basin_map.png'
+#   ),
+#   dpi = 300,
+#   width = 10,
+#   height = 10,
+#   units = 'in'
+# )
+
+#**5a. Map of lake polygons with watersheds----
+
+ggplot()+
+  geom_sf(
+    data = world, 
+    color = 'black', 
+    alpha = 0.5
+  )+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  theme_classic()+
+  geom_sf(
+    data = glac_poly,
+    fill = 'lightblue'
+  )+
+  # geom_sf(
+  #   data = glac_lakes,
+  #   fill = 'red'
+  # )+
+  geom_point(
+    data = glac_lakes,
+    aes(
+      x = pour_long,
+      y = pour_lat
+    ),
+    shape = 21,
+    fill = 'green4',
+    alpha = 0.2
+  )+
+  coord_sf(
+    xlim = c(-164, -102),
+    ylim = c(33, 71)
+  )
+
+ggsave(
+  here(
+    'output/maps/lake_point_w_basins_map.png'
+  ),
+  dpi = 300,
+  width = 10,
+  height = 10,
+  units = 'in'
+)
