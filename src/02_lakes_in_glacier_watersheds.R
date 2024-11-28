@@ -54,7 +54,7 @@ glac_poly <- sf::st_read(
   )
 )
 
-mapview(glac_poly)
+#mapview(glac_poly)
 
 # 3. Read in HydroLAKES data ----------------------------------------------
 
@@ -191,3 +191,13 @@ ggsave(
   height = 10,
   units = 'in'
 )
+
+
+test <- glac_lakes %>% 
+  st_drop_geometry() %>% 
+  summarise(
+    mean = mean(lake_area, na.rm = T),
+    median = median(lake_area, na.rm = T),
+    max = max(lake_area, na.rm = T),
+    min = min(lake_area, na.rm = T)
+  )
