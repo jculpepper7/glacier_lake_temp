@@ -15,7 +15,8 @@ libs <- c(
   'terra',
   'rayshader',
   'janitor',
-  'mapview'
+  'mapview',
+  'here'
 )
 
 installed_libs <- libs %in% rownames(
@@ -149,10 +150,10 @@ glaciers <- readxl::read_excel('41586_2021_3436_MOESM5_ESM.xlsx', skip = 1) #%>%
 #   )
 
 #Inspect map of glacier data points
- #mapview(glaciers, xcol = 'tile_lonmin', ycol = 'tile_latmin', crs = 4269, grid = F)
+#mapview(glaciers, xcol = 'tile_lonmin', ycol = 'tile_latmin', crs = 4269, grid = F)
 
 
-# 5. Filter glacier data to N. America ------------------------------------
+# 5. Filter glacier data to western N. America -----------------------------
 
 na_glac <- glaciers %>% 
   filter(
@@ -176,6 +177,19 @@ glac_ws <- st_intersection(na_glac_sf, all_basins) %>%
 
 
 glac_polys <- all_basins %>% 
-  inner_join(glac_ws, by = 'HYBAS_ID')
+  inner_join(
+    glac_ws, 
+    by = 'HYBAS_ID'
+  )
 
 mapview(glac_polys)
+
+
+# 7. Save the filtered watersheds -----------------------------------------
+
+st_write(glac_polys,
+  here(
+    'data/glacier_basins.shp'
+  )
+)
+
